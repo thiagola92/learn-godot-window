@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://8uv5rxjdj8t3"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_nrpfw"]
+
+[node name="Main" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+script = ExtResource("1_nrpfw")
+
+[node name="Sections" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="TitleBar" type="HBoxContainer" parent="Sections"]
+layout_mode = 2
+
+[node name="Empty" type="HBoxContainer" parent="Sections/TitleBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Sections/TitleBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Title"
+horizontal_alignment = 1
+
+[node name="RightButtons" type="HBoxContainer" parent="Sections/TitleBar"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Minimize" type="Button" parent="Sections/TitleBar/RightButtons"]
+layout_mode = 2
+text = "Minimize"
+
+[node name="Maximize" type="Button" parent="Sections/TitleBar/RightButtons"]
+layout_mode = 2
+text = "Maximize"
+
+[node name="Close" type="Button" parent="Sections/TitleBar/RightButtons"]
+layout_mode = 2
+text = "Close"
+
+[node name="ResizeTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.05
+one_shot = true
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="resized" from="." to="." method="_on_resized"]
+[connection signal="gui_input" from="Sections/TitleBar" to="." method="_on_title_bar_gui_input"]
+[connection signal="pressed" from="Sections/TitleBar/RightButtons/Minimize" to="." method="_on_minimize_pressed"]
+[connection signal="pressed" from="Sections/TitleBar/RightButtons/Maximize" to="." method="_on_maximize_pressed"]
+[connection signal="pressed" from="Sections/TitleBar/RightButtons/Close" to="." method="_on_close_pressed"]
+[connection signal="timeout" from="ResizeTimer" to="." method="_on_resize_timer_timeout"]
